@@ -1,4 +1,4 @@
-import {getApiRoot, getApiWebsocketRoot} from '../Constants/Api'
+import {getApiRoot} from '../Constants/Api'
 
 export const createMessage = (roomId, messageBody) => {
   return new Promise((resolve, reject) => {
