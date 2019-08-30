@@ -20,7 +20,7 @@ class Room extends Component {
   }
 
   initializeActionCable = (roomId) => {
-    let cable = ActionCable.createConsumer(getApiWebsocketRoot())
+    let cable = ActionCable.createConsumer(getApiWebsocketRoot(roomId))
     cable.subscriptions.create(
       { channel: 'MessagesChannel', roomId: roomId },
       { received: (data) => { this.handleReceivedMessage(data) } },
