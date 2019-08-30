@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' render={(props) => <Rooms /> }/>
-        <Route exact path='/rooms/:id'  component={Room}/>
+          <Route exact path='/rooms/:id'  component={Room}/>
       </Switch>
     </BrowserRouter>
   );
