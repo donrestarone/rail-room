@@ -5,6 +5,8 @@ class Api::V1::MessagesController < ApplicationController
     room = Room.find_by(id: room_id)
     message = params["message_body"]
     message = room.messages.create(body: message)
-    render json: MessageSerializer.new(message)
+    serialized_json = MessageSerializer.new(message)
+    render json: serialized_json
+    # MessagesChannel.broadcast_to(room, serialized_json) 
   end
 end
