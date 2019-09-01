@@ -1,8 +1,11 @@
-import React from 'react';
+
+import React, { Component } from 'react';
 import MessageListItem from '../../List/MessageListItem/MessageListItem'
-const MessagesHolder = (props) => {
-  const messages = props.messages
-  const showMessages = () => {
+import './MessagesHolder.css'
+
+class MessagesHolder extends Component {
+  showMessages = () => {
+    const messages = this.props.messages
     if (messages) {
       return messages.map((message, index) => {
         return (
@@ -11,16 +14,31 @@ const MessagesHolder = (props) => {
       })
     }
   }
-  return (
+
+  componentDidMount = () => {
+    const messageBody = document.getElementById('messages-wrapper')
+    messageBody.scrollTop = messageBody.scrollHeight;
+  }
+
+  componentDidUpdate = () => {
+    const messageBody = document.getElementById('messages-wrapper')
+    console.log(messageBody.scrollTop, messageBody.scrollHeight, messageBody.clientHeight)
+    messageBody.scrollTop = messageBody.scrollHeight;
+
+  }
+  render() {
+    return (
     <>
-      <div className="messages-wrapper">
-        {showMessages()}
+      <div className="messages-wrapper" id="messages-wrapper">
+        {this.showMessages()}
       </div>
       <div className="input-wrapper">
-        <input type="text" onChange={props.handleInput} value={props.message} onKeyUp={props.handleMacroKeyInput}></input>
       </div>
+        <input type="text" onChange={this.props.handleInput} value={this.props.message} onKeyUp={this.props.handleMacroKeyInput} className="message-input"></input>
     </>
-  )
+    
+    );
+  }
 }
 
 export default MessagesHolder;
