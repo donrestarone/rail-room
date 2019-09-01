@@ -12,15 +12,14 @@ const MessagesHolder = (props) => {
     }
   }
   return (
-    <div className="room-wrapper"> 
-
+    <>
       <div className="messages-wrapper">
         {showMessages()}
       </div>
       <div className="input-wrapper">
         <input type="text" onChange={props.handleInput} value={props.message} onKeyUp={props.handleMacroKeyInput}></input>
       </div>
-    </div>
+    </>
   )
 }
 
