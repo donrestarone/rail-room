@@ -135,6 +135,7 @@ class Room extends Component {
         <div className="room-title-wrapper">
           <h1 className="room-title">{this.showRoomName()}</h1>
           <button onClick={this.props.onNightModeToggle}>NightMode</button>
+          <input value={`${window.location.href}`}></input>
         </div>
         <MessagesHolder handleInput={this.handleMessageInput} handleMacroKeyInput={this.handleMacroKeyInput} message={this.state.message} messages={this.state.messages}></MessagesHolder>
       </div>
