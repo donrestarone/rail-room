@@ -1,0 +1,9 @@
+.messages-wrapper {
+  overflow-y: scroll;
+  padding: 0 30px;
+  height: 80vh;
+}
+
+.message-input {
+  text-align: center;
+}
