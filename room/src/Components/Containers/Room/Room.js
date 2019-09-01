@@ -7,14 +7,28 @@ import {getApiWebsocketRoot} from '../../../Constants/Api'
 // import { ActionCableProvider, ActionCable } from 'react-actioncable-provider';
 import MessagesHolder from '../../../Components/Room/MessagesHolder/MessagesHolder'
 import ActionCable from 'actioncable'
+import {changeClassesOfRefs} from '../../../Utilities/HTMLhelpers'
 import './Room.css'
 class Room extends Component {
 
   state = {
     messages: [],
     roomName: null,
-    message: ''
+    message: '',
+    // this is how we keep track of all the html element's style that need to be changed when dark mode is toggled
+    refs: []
   }
+
+  renderViewMode = () => {
+    let isDark = this.props.shouldBeDarkMode 
+    let domNodes = this.state.refs
+    if (isDark) {
+      changeClassesOfRefs(domNodes, true)
+    } else {
+      changeClassesOfRefs(domNodes, false)
+    }
+  }
+
   componentWillMount = () => {
     let roomId = this.props.match.params.id
     this.initializeActionCable(roomId)
@@ -115,15 +129,15 @@ class Room extends Component {
     }
   }
   render() {
-    console.log(this.props.shouldBeDarkMode)
+    this.renderViewMode()
     return (
-      <>
+      <div className="room-wrapper" ref={roomWrapper => this.state.refs[0] = roomWrapper}>
         <div className="room-title-wrapper">
           <h1 className="room-title">{this.showRoomName()}</h1>
           <button onClick={this.props.onNightModeToggle}>NightMode</button>
         </div>
         <MessagesHolder handleInput={this.handleMessageInput} handleMacroKeyInput={this.handleMacroKeyInput} message={this.state.message} messages={this.state.messages}></MessagesHolder>
-      </>
+      </div>
     );
   }
 }
