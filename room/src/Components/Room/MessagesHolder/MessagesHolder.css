@@ -1,9 +1,37 @@
 .messages-wrapper {
   overflow-y: scroll;
-  padding: 0 30px;
-  height: 80vh;
+}
+
+.message-input-wrapper {
+  text-align: center;
 }
 
 .message-input {
-  text-align: center;
+  border-bottom: 2px dashed green;
+}
+
+@media only screen and (max-width: 600px) {
+  /* mobile */
+  .messages-wrapper {
+    height: 55vh;
+    padding: 20px;
+  }  
+  .message-input {
+    width: 75vw;
+    height: 3vh;
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+/* desktop */
+.message-input {
+  width: 50vw;
+  height: 5vh;
+  font-size: 20px;
+}
+.messages-wrapper {
+  padding: 0 30px;
+  height: 80vh;
+}  
 }
