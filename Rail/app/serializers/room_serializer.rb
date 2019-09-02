@@ -1,6 +1,8 @@
 class RoomSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :id
+  attributes :name
+
+  set_id :slug
 
   attribute :messages do |room|
     MessageSerializer.new(room.messages)
