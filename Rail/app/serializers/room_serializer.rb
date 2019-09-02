@@ -1,6 +1,6 @@
 class RoomSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name
+  attributes :name, :users_count
 
   set_id :slug
 

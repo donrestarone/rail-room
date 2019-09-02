@@ -18,7 +18,8 @@ class Room extends Component {
     message: '',
     // this is how we keep track of all the html element's style that need to be changed when dark mode is toggled
     refs: [],
-    connected: false
+    connected: false,
+    users: 0
   }
 
   renderViewMode = () => {
@@ -50,7 +51,7 @@ class Room extends Component {
 
   initializeActionCable = (roomId) => {
     let cable = ActionCable.createConsumer(getApiWebsocketRoot(roomId))
-    let app = cable.subscriptions.create(
+    cable.subscriptions.create(
       { 
       channel: 'MessagesChannel', roomId: roomId 
       },
@@ -126,10 +127,12 @@ class Room extends Component {
     .then(object => {
       let messages = object.data.attributes.messages.data
       let roomName = object.data.attributes.name
+      let users = object.data.attributes.users_count
       this.setState({
         messages,
-        roomName
-      })
+        roomName,
+        users: users
+      }, console.log(this.state))
     })
   }
 
@@ -151,8 +154,20 @@ class Room extends Component {
   }
 
   handleReceivedMessage = (object) => {
-    let message = object.data
-    this.updateMessageListState(message)
+    // there are 2 types of object recieved here. message or room
+    if (object.data.type === 'room') {
+      let room = object.data 
+      this.updateRoomState(room)
+    } else {
+      let message = object.data
+      this.updateMessageListState(message)
+    }
+  }
+
+  updateRoomState = (room) => {
+    this.setState({users: room.attributes.users_count}, () => {
+      console.log(this.state)
+    })
   }
 
   showRoomName = () => {
@@ -175,7 +190,7 @@ class Room extends Component {
     return (
       <div className="room-wrapper" ref={roomWrapper => this.state.refs[0] = roomWrapper}>
         <div className="room-title-wrapper">
-          <h1 className="room-title">{this.showRoomName()}</h1>
+          <h1 className="room-title">{this.showRoomName()} ({this.state.users})</h1>
           <button onClick={this.props.onNightModeToggle}>NightMode</button>
           <input value={`${window.location.href}`}></input>
           {this.showCableConnectionStatus()}
