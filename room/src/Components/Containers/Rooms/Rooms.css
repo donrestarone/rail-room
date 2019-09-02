@@ -1,0 +1,67 @@
+.welcome-wrapper {
+  text-align: center;
+}
+
+.welcome-wrapper h1 {
+  font-style: italic;
+}
+
+.welcome-wrapper > p {
+  text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 600px) {
+  /* mobile */
+  .welcome-wrapper > h1 {
+    font-size: 30px;
+  }
+
+  .welcome-wrapper > p {
+    font-size: 15px;
+  }
+
+  .room-name-input-wrapper {
+    padding: 35px;
+  }
+
+  .room-name-input {
+    height: 5vh;
+    width: 40vw;
+    font-size: 12px;
+  }
+
+  .create-room-button {
+    height: 50px;
+    width: 200px;
+    font-size: 14px;
+  }
+
+}
+
+@media only screen and (min-width: 601px) {
+/* desktop */
+  .welcome-wrapper > h1 {
+    font-size: 50px;
+  }
+
+  .welcome-wrapper > p {
+    font-size: 30px;
+  }
+
+  .room-name-input-wrapper {
+    padding: 50px;
+  }
+
+  .room-name-input {
+    height: 8vh;
+    width: 30vw;
+    font-size: 20px;
+  }
+
+  .create-room-button {
+    height: 4vh;
+    width: 23vw;
+    font-size: 20px;
+  }
+}
