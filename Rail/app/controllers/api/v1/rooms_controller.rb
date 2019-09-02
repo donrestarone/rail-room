@@ -6,14 +6,14 @@ class Api::V1::RoomsController < ApplicationController
 
   def create
     room_name = params["room_name"]
-    room = Room.create(name: room_name)
+    room = Room.handle_creation(room_name)
 
     render json: RoomSerializer.new(room).serialized_json
   end
 
   def show
     room_id = params[:id]
-    room = Room.includes(:messages).find_by(id: room_id)
+    room = Room.includes(:messages).find_by(slug: room_id)
     if room 
      render json: RoomSerializer.new(room).serialized_json 
     else 
