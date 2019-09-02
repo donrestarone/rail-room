@@ -12,7 +12,7 @@ import Room from './Components/Containers/Room/Room'
 class App extends Component {
 
   componentDidMount = () => {
-    // this.switchToHttps()
+    this.switchToHttps()
   }
 
   switchToHttps = () => {
