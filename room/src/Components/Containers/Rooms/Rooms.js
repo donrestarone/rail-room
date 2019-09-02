@@ -5,34 +5,8 @@ import './Rooms.css'
 import { thisExpression } from '@babel/types';
 class Rooms extends Component {
   state = {
-    // rooms: [],
     roomName: ''
   }
-  // componentDidMount = () => {
-  //   this.fetchRooms()
-  // }
-
-  // fetchRooms = () => {
-  //   getRooms().then(response => response.json())
-  //   .then(object => {
-  //     if (object.data) {
-  //       this.setState({
-  //         rooms: object.data
-  //       })
-  //     }
-  //   })
-  // }
-
-  // showRoomsList = () => {
-  //   let rooms = this.state.rooms
-  //   if (rooms) {
-  //     return rooms.map((room, index) => {
-  //       return (
-  //         <RoomListItem room={room} key={index}></RoomListItem>
-  //       )
-  //     })
-  //   }
-  // }
 
   roomCreationClickHandler = () => {
     let name = this.state.roomName
@@ -59,13 +33,19 @@ class Rooms extends Component {
   }
   render() {
     return (
-    <div>
-      {/* {this.showRoomsList()} */}
-      <div>
-        <input onChange={this.roomNameHandler}></input>
-        <button onClick={this.roomCreationClickHandler}>Create Private Room</button>
+      <div className="welcome-wrapper">
+        <h1>Welcome to the Railroad</h1>
+        <p>Your secret messenger</p>
+        <div>
+          <p>To begin: create a room with a name &amp; share the link with a friend. Only people who you give the link to will be able to read the messages/respond.</p>
+        </div>
+        <div className="room-name-input-wrapper">
+          <input onChange={this.roomNameHandler} placeholder="enter room name" className="room-name-input"></input>
+        </div>
+        <div className="room-creation-wrapper">
+          <button onClick={this.roomCreationClickHandler} className="create-room-button">Create Private Room</button>
+        </div>
       </div>
-    </div>
     
     );
   }
