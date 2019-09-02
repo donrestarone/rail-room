@@ -28,7 +28,10 @@ class MessageListItem extends Component {
     let message = this.props.message
     return (
     <div className="message-wrapper" ref={messageWrapper => this.state.refs[0] = messageWrapper}>
-      <p className="message-body">{message.attributes.body}</p>
+      <div className="message-contents-wrapper">
+        <p className="message-sender">{message.attributes.sender_name}:</p>
+        <p className="message-body">{message.attributes.body}</p>
+      </div>
     </div>
     
     );
