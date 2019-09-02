@@ -1,6 +1,6 @@
 export const getApiRoot = () => {
   const localRoot = "http://localhost:3000";
-  const ngrok = "http://d72ed59f.ngrok.io"
+  const ngrok = ""
   const productionRoot = "https://engine-yard.herokuapp.com"
   return productionRoot;
 };
