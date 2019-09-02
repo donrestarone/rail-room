@@ -1,16 +1,42 @@
 .message-wrapper {
-  height: 50px;
-  width: 200px;
   border: 2px solid black;
-  margin: 10px;
 }
 .message-wrapper-dark {
-  height: 50px;
-  width: 200px;
   border: 2px solid white;
-  margin: 10px;
 }
 
 .message-body {
-  padding: 2px;
+  overflow:hidden
+}
+
+.message-contents-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  word-wrap: break-word;
+}
+
+.message-wrapper {
+  height: auto;
+  width: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  /* mobile */
+
+  .message-body, .message-sender {
+    padding: 5px;
+  }
+  .message-wrapper {
+    margin: 5px 0;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+/* desktop */
+  .message-body, .message-sender {
+    padding: 10px;
+  }
+  .message-wrapper {
+    margin: 10px 0;
+  }
 }

@@ -8,6 +8,7 @@ import {getApiWebsocketRoot} from '../../../Constants/Api'
 import MessagesHolder from '../../../Components/Room/MessagesHolder/MessagesHolder'
 import ActionCable from 'actioncable'
 import {changeClassesOfRefs} from '../../../Utilities/HTMLhelpers'
+import {getDisplayName} from '../../../Utilities/GetDisplayName'
 import './Room.css'
 class Room extends Component {
 
@@ -32,6 +33,18 @@ class Room extends Component {
   componentWillMount = () => {
     let roomId = this.props.match.params.id
     this.initializeActionCable(roomId)
+    this.checkDisplayName()
+  }
+
+  checkDisplayName = () => {
+    // check session storage to see if a user name is defined, otherwise ask to define it
+    let displayName = getDisplayName()
+    if (displayName) {
+      // do nothing
+    } else {
+      let name = window.prompt("Please enter your name");
+      sessionStorage.setItem('name', name)
+    }
   }
 
   initializeActionCable = (roomId) => {
@@ -51,10 +64,11 @@ class Room extends Component {
   handleMacroKeyInput = (e) => {
     if (e.key === 'Enter') {
       let message = this.state.message
+      let name = getDisplayName()
       if (message) {
         let roomId = this.props.match.params.id
         this.cleanUpAfterMessageSend()
-        this.postNewMessage(roomId, message)
+        this.postNewMessage(roomId, message, name)
       }
     }    
   }
@@ -63,8 +77,8 @@ class Room extends Component {
     this.setState({message: ''})
   }
 
-  postNewMessage = (roomId, message) => {
-    createMessage(roomId, message).then(response => response.json())
+  postNewMessage = (roomId, message, name) => {
+    createMessage(roomId, message, name).then(response => response.json())
     .then(object => {
       if (object.data) {
         let message = object.data

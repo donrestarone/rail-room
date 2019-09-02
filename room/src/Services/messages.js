@@ -1,6 +1,6 @@
 import {getApiRoot} from '../Constants/Api'
 
-export const createMessage = (roomId, messageBody) => {
+export const createMessage = (roomId, messageBody, name) => {
   return new Promise((resolve, reject) => {
     let endpoint = `${getApiRoot()}/api/v1/rooms/${roomId}/messages`;
     fetch(endpoint, {
@@ -10,7 +10,8 @@ export const createMessage = (roomId, messageBody) => {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        message_body: messageBody
+        message_body: messageBody,
+        sender_name: name
       })
     })
       .then(e => {

@@ -6,6 +6,7 @@ import './MessagesHolder.css'
 class MessagesHolder extends Component {
   showMessages = () => {
     const messages = this.props.messages
+    console.log(messages)
     if (messages) {
       return messages.map((message, index) => {
         return (
@@ -15,16 +16,10 @@ class MessagesHolder extends Component {
     }
   }
 
-  componentDidMount = () => {
-    const messageBody = document.getElementById('messages-wrapper')
-    messageBody.scrollTop = messageBody.scrollHeight;
-  }
 
   componentDidUpdate = () => {
     const messageBody = document.getElementById('messages-wrapper')
-    console.log(messageBody.scrollTop, messageBody.scrollHeight, messageBody.clientHeight)
     messageBody.scrollTop = messageBody.scrollHeight;
-
   }
   render() {
     return (
@@ -34,7 +29,9 @@ class MessagesHolder extends Component {
       </div>
       <div className="input-wrapper">
       </div>
-        <input type="text" onChange={this.props.handleInput} value={this.props.message} onKeyUp={this.props.handleMacroKeyInput} className="message-input"></input>
+      <div className="message-input-wrapper">
+        <input type="text" onChange={this.props.handleInput} placeholder="type a message, hit enter to send" value={this.props.message} onKeyUp={this.props.handleMacroKeyInput} className="message-input"></input>
+      </div>
     </>
     
     );
