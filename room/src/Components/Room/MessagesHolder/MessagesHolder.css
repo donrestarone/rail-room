@@ -25,13 +25,13 @@
 
 @media only screen and (min-width: 601px) {
 /* desktop */
-.message-input {
-  width: 50vw;
-  height: 5vh;
-  font-size: 20px;
-}
-.messages-wrapper {
-  padding: 0 30px;
-  height: 80vh;
-}  
+  .message-input {
+    width: 50vw;
+    height: 5vh;
+    font-size: 20px;
+  }
+  .messages-wrapper {
+    padding: 0 30px;
+    height: 80vh;
+  }  
 }
