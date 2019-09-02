@@ -17,7 +17,8 @@ class Room extends Component {
     roomName: null,
     message: '',
     // this is how we keep track of all the html element's style that need to be changed when dark mode is toggled
-    refs: []
+    refs: [],
+    connected: false
   }
 
   renderViewMode = () => {
@@ -49,12 +50,30 @@ class Room extends Component {
 
   initializeActionCable = (roomId) => {
     let cable = ActionCable.createConsumer(getApiWebsocketRoot(roomId))
-    cable.subscriptions.create(
-      { channel: 'MessagesChannel', roomId: roomId },
-      { received: (data) => { this.handleReceivedMessage(data) } },
-      { connected: () => { console.log('connected')} },
-      { disconnect: () => { console.log('disconnected')} },
+    let app = cable.subscriptions.create(
+      { 
+      channel: 'MessagesChannel', roomId: roomId 
+      },
+      { 
+        received: (data) => { this.handleReceivedMessage(data)},
+        connected: () => { this.toggleCableConnectedStatus() },
+        disconnected: () => { this.toggleCableConnectedStatus() },
+      }
     )
+  }
+
+  toggleCableConnectedStatus = () => {
+    
+    this.setState(prevState => ({
+      connected: !prevState.connected
+    }), () => {
+      let connected = this.state.connected
+      if (connected) {
+        console.log('connected')
+      } else {
+        console.log('connected')
+      }
+    })
   }
   handleMessageInput = (e) => {
     let input = e.target.value
@@ -142,6 +161,15 @@ class Room extends Component {
       return roomName
     }
   }
+
+  showCableConnectionStatus = () => {
+    let connected = this.state.connected
+    if (connected) {
+      return <small>Connected!</small>
+    } else {
+      return <small>Please refresh page to load new messages</small>
+    }
+  }
   render() {
     this.renderViewMode()
     return (
@@ -150,6 +178,7 @@ class Room extends Component {
           <h1 className="room-title">{this.showRoomName()}</h1>
           <button onClick={this.props.onNightModeToggle}>NightMode</button>
           <input value={`${window.location.href}`}></input>
+          {this.showCableConnectionStatus()}
         </div>
         <MessagesHolder handleInput={this.handleMessageInput} handleMacroKeyInput={this.handleMacroKeyInput} message={this.state.message} messages={this.state.messages}></MessagesHolder>
       </div>
