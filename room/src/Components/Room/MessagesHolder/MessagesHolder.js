@@ -6,7 +6,6 @@ import './MessagesHolder.css'
 class MessagesHolder extends Component {
   showMessages = () => {
     const messages = this.props.messages
-    console.log(messages)
     if (messages) {
       return messages.map((message, index) => {
         return (
