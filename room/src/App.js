@@ -12,7 +12,7 @@ import {pingApi} from './Services/ping'
 class App extends Component {
 
   componentDidMount = () => {
-    // this.switchToHttps()
+    this.switchToHttps()
     this.checkApiStatus()
   }
 
