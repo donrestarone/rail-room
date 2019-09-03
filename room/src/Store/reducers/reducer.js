@@ -1,5 +1,6 @@
 const initialState = {
-  darkMode: false
+  darkMode: false,
+  isApiDown: true
 }
 
 export const reducer = (state = initialState, action) => {
@@ -9,6 +10,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state, 
         darkMode: !state.darkMode 
+      }
+    case 'toggleApiStatus':
+      return {
+        ...state, 
+        isApiDown: !state.isApiDown 
       }
     default:
       return state

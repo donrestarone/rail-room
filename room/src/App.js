@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import './App.css';
 import Rooms from './Components/Containers/Rooms/Rooms'
 import Room from './Components/Containers/Room/Room'
-
+import {pingApi} from './Services/ping'
 
 
 
@@ -12,8 +12,19 @@ import Room from './Components/Containers/Room/Room'
 class App extends Component {
 
   componentDidMount = () => {
-    this.switchToHttps()
+    // this.switchToHttps()
+    this.checkApiStatus()
   }
+
+  checkApiStatus = () => {
+    pingApi().then(response => response.json())
+    .then(object => {
+      if (object.code === 200) {
+        this.props.toggleApiStatus()
+      }
+    })
+  }
+
 
   switchToHttps = () => {
     if (window.location.protocol != 'https:') {
@@ -43,10 +54,18 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
   return {
-    shouldBeDarkMode: state.darkMode
+    toggleApiStatus: () => dispatch({
+      type: 'toggleApiStatus'
+    })
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapStateToProps = state => {
+  return {
+    shouldBeDarkMode: state.darkMode,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {getRooms, createRoom} from '../../../Services/rooms'
 import RoomListItem from '../../List/RoomListItem/RoomListItem'
 import './Rooms.css'
@@ -31,10 +32,21 @@ class Rooms extends Component {
       this.setState({roomName: name})
     }
   }
+  
+
+  showApiStatus = () => {
+    let apiFunctional = this.props.isApiUp
+    if (apiFunctional) {
+      return <small>All Systems Operational &#9996;</small>
+    } else {
+      return <small>System is either down or currently booting up, please stand by &#9832;</small>
+    }
+  }
   render() {
     return (
       <div className="welcome-wrapper">
         <h1>Welcome to the Railroad</h1>
+        
         <p>Your secret messenger</p>
         <div>
           <p>To begin: create a room with a name &amp; share the link with a friend. Only people who you give the link to will be able to read the messages/respond.</p>
@@ -45,10 +57,19 @@ class Rooms extends Component {
         <div className="room-creation-wrapper">
           <button onClick={this.roomCreationClickHandler} className="create-room-button">Create Private Room</button>
         </div>
+        {this.showApiStatus()}
       </div>
     
     );
   }
 }
 
-export default Rooms;
+
+const mapStateToProps = state => {
+  return {
+    isApiUp: !state.isApiDown
+  }
+}
+
+export default connect(mapStateToProps, null)(Rooms);;
+

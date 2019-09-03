@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "RailRoad",
+  "name": "RailRoad: your secret messenger",
   "icons": [
     {
       "src": "favicon.ico",
